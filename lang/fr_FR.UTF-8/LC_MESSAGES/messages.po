@@ -14577,8 +14577,8 @@ msgstr "Poubelle"
 msgid "All pollers"
 msgstr "Tous les collecteurs"
 
-msgid "Configure pollers"
-msgstr "Configurer les collecteurs"
+msgid "Configure"
+msgstr "Configurer"
 
 msgid "services"
 msgstr "services"

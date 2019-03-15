@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import config from "../../config";
-import {Translate} from 'react-redux-i18n';
-import {I18n} from "react-redux-i18n";
+import { Translate } from 'react-redux-i18n';
+import { I18n } from "react-redux-i18n";
 import axios from "../../axios";
 
 import { connect } from "react-redux";

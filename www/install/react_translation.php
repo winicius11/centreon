@@ -34,7 +34,7 @@
  */
 
 echo _("All pollers");
-echo _("Configure pollers");
+echo _("Configure");
 echo _("services");
 echo _("Critical services");
 echo _("Warning services");

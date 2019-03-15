@@ -12561,8 +12561,8 @@ msgid "All pollers"
 msgstr "Todos os Coletores"
 
 #: /home/lgcosta/devel/centreon/centreon/www/install/react_translation.php:37
-msgid "Configure pollers"
-msgstr "Configurar coletores"
+msgid "Configure"
+msgstr "Configurar"
 
 #: /home/lgcosta/devel/centreon/centreon/www/install/react_translation.php:38
 msgid "services"
