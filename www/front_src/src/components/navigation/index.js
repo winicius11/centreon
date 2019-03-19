@@ -185,6 +185,7 @@ class NavigationComponent extends Component {
                   </span>
                 </span>
                 <ul
+                  onMouseEnter={this.collapseLevelTwo}
                   className={`collapse collapsed-items list-unstyled`}
                 >
                 <span className={"menu-item-name"}><Translate value={levelOneProps.label}/></span>
@@ -194,8 +195,9 @@ class NavigationComponent extends Component {
                     if (levelTwoProps.label) {
                       return (
                         <li
+                          
                           className={
-                            `collapsed-item ${levelTwoProps.collapsed || (pageId == urlOptions) ? " active" : ""}`
+                            `second-level collapsed-item ${levelTwoProps.collapsed || (pageId == urlOptions) ? " active" : ""}`
                           }
                         >
                           {Object.keys(levelTwoProps.children).length > 0 ? (
@@ -222,6 +224,7 @@ class NavigationComponent extends Component {
                             )}
 
                           <ul
+                            onMouseEnter={this.collapseLevelThree}
                             className="collapse-level collapsed-level-items first-level list-unstyled"
                           >
                             {Object.entries(levelTwoProps.children).map(([levelThreeKey, levelThreeProps]) => {
@@ -237,7 +240,7 @@ class NavigationComponent extends Component {
                                     if (levelFourProps.label) {
                                       return (
                                         <li
-                                          className={`collapsed-level-item ${pageId == urlOptions ? " active" : ""}`}
+                                          className={`third-level collapsed-level-item ${pageId == urlOptions ? " active" : ""}`}
                                         >
                                           <Link
                                             onClick={() => {

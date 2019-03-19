@@ -145,6 +145,7 @@
           display: block;
         }
       }
+
     }
   }
 
@@ -232,7 +233,7 @@
       }
     }
     &-title {
-      background-color: $centreon-graphit-color;
+      background-color: $grey-cloudy;
       height: 1px;
       display: block;
       margin: 4px 20px;
@@ -246,12 +247,12 @@
   .collapsed-item {
     position: relative;
     color: $white-color;
-    height: 45px;
+    height: 50px;
     .first-level {
       display: none;
       position: relative;
       left: 190px;
-      top: -46px;
+      top: -50px;
       z-index: 999;
     }
     &:hover {
