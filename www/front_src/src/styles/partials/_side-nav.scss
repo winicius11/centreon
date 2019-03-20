@@ -118,8 +118,11 @@
   right: 20px;
   transform: translateY(-50%);
 }
-
+.active-link {
+  font-weight: 600;
+}
 .menu {
+  
   .list-unstyled {
     width: 190px;
     bottom: 0;
@@ -160,7 +163,10 @@
       }
     }
    
-
+    a:active,
+    a:focus {
+      font-weight: 600;
+    }
     &.active {
       > span {
         background: $centreon-graphit-color;
@@ -170,9 +176,9 @@
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$centreon-graphit-color', endColorstr='$black-color',GradientType=1 ); /* IE6-9 */
       }
       &:hover {
-        >ul.list-unstyled.active  {
+        ul.collapsed-items.active  {
           display: block;
-          ul.collapse-level.collapsed-level-items.first-level.list-unstyled {
+          li.collapsed-item.active > ul {
             display: block;
           }
         }
@@ -288,9 +294,11 @@
     &:hover {
       .second-level {
         display: block;
+       
       }
     }
-    &:hover {
+    &.active,
+    &:hover{
       > .collapsed-level-item-link{
         font-weight: 600;
       }

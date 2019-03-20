@@ -43,14 +43,14 @@ class NavigationComponent extends Component {
       });
     })
   };
-// OLD toggle between icons menu and details menu
+// toggle between icons menu and details menu
   toggleNavigation = () => {
     const { active } = this.state;
     this.setState({
       active: !active
     });
   };
-  //OLD handle double click on level 1
+  // handle double click on level 1
   handleDirectClick = (levelOneKey, levelOneProps) => {
     clearTimeout(this.clickTimeout)
     this.doubleClicked = true
@@ -61,7 +61,7 @@ class NavigationComponent extends Component {
       levelOneKey
     )
   }
-   // OLD display/hide level 2
+   //display/hide level 2
    collapseLevelTwo = index => {
     this.clickTimeout = setTimeout(() => {
         let { menuItems } = this.state;
@@ -77,7 +77,7 @@ class NavigationComponent extends Component {
     }, 200);
   };
 
-  // OLD display/hide level 3
+  // display/hide level 3
   collapseLevelThree = (levelOneKey, levelTwoKey) => {
     let { menuItems } = this.state;
 
@@ -108,13 +108,27 @@ class NavigationComponent extends Component {
     });
   };
 
-  // detectParent = () => {
-  //   console.log('detect parent');
-  //   let parent = this._reactInternalInstance._currentElement._owner._instance.bind(this);
-  //   console.log(parent);
-  //   parent.className += 'focused';
-  // }
+ 
 
+      //active current element
+  activeCurrentElement = (e) => {
+    e.currentTarget.className += ' active';
+  }
+
+  resetActiveElements = () => {
+   
+    let targetElement = document.getElementsByClassName('third-level');
+    let targetElementClass = targetElement.classList;
+    console.log(targetElement);
+    console.log(targetElementClass);
+    //targetElementClass.remove("active");
+
+  }
+
+  manageActiveItems = () => {
+    this.resetActiveElements(e);
+    this.activeCurrentElement();
+  }
 
 
   // activate level 1 (display colored menu)
@@ -214,6 +228,7 @@ class NavigationComponent extends Component {
                 <ul
                   onMouseEnter={this.collapseLevelTwo}
                   className={`collapse collapsed-items list-unstyled ${active ? "active" : " "}`}
+
                 >
                   <span className={"menu-item-name"}><Translate value={levelOneProps.label}/></span>
                   {Object.entries(levelOneProps.children).map(([levelTwoKey, levelTwoProps]) => {
@@ -222,16 +237,14 @@ class NavigationComponent extends Component {
                     if (levelTwoProps.label) {
                       return (
                         <li
-                          // onClick={this.detectParent}
                           className={
-                            //`second-level collapsed-item ${levelTwoProps.collapsed || (pageId == urlOptions) ? " active" : ""}`
-                            `second-level collapsed-item ${levelOneProps.active || (pageId == urlOptions) ? " active" : ""}`
+                            `second-level collapsed-item ${levelTwoProps.collapsed || (pageId == urlOptions) ? " active" : ""}`
                           }
                         >
                           {Object.keys(levelTwoProps.children).length > 0 ? (
                             <span
                               className="collapsed-level-item-link"
-                              onMouseOver={() => {this.collapseLevelThree(levelOneKey, levelTwoKey)}}
+                              onMouseEnter={() => {this.collapseLevelThree(levelOneKey, levelTwoKey)}}
                             >
                               <Translate
                                 value={levelTwoProps.hasOwnProperty('label') ? levelTwoProps.label : ''}
@@ -253,8 +266,8 @@ class NavigationComponent extends Component {
                             )}
 
                           <ul
-                            onMouseEnter={this.collapseLevelThree}
-                            className="collapse-level collapsed-level-items first-level list-unstyled"
+                            onMouseOver={this.collapseLevelThree}
+                            className={`collapse-level collapsed-level-items first-level list-unstyled ${(levelOneProps.toggled && active) ? "active" : " "}`}
                           >
                             {Object.entries(levelTwoProps.children).map(([levelThreeKey, levelThreeProps]) => {
                               return (
@@ -269,17 +282,18 @@ class NavigationComponent extends Component {
                                     if (levelFourProps.label) {
                                       return (
                                         <li
-                                          className={`third-level collapsed-level-item ${pageId == urlOptions ? " active" : ""}`}
+                                         className={`third-level collapsed-level-item `}
+                                         onClick={this.activeCurrentElement}
                                         >
                                           <Link
                                             onClick={() => {
-                                              this.closeNavigation();
+                                              // this.closeNavigation();
                                               this.goToPage(
                                                 routeMap.module + "?p=" + urlOptions,
                                                 levelOneKey
                                               );
                                             }}
-                                            className="collapsed-level-item-link"
+                                            className={`collapsed-level-item-link`}
                                             to={routeMap.module + "?p=" + urlOptions}
                                           >
                                             <Translate value={levelFourProps.label}/>
