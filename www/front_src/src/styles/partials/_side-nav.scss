@@ -114,8 +114,8 @@
 .menu {
   .list-unstyled {
     width: 190px;
-    position: relative;
-    top: -118px;
+    position: fixed;
+    // top: 51px;
     left: 68px;
     display: none;
     width: 170px;
@@ -125,7 +125,6 @@
     background: -webkit-linear-gradient(left, $black-color 0%,$centreon-graphit-darken 51%,$centreon-graphit-darken 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to right, $black-color 0%,$centreon-graphit-darken 51%,$centreon-graphit-darken 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$black-color', endColorstr='$centreon-graphit-darken',GradientType=1 ); /* IE6-9 */
-
   }
   .collapse-level {
     color: $white-color;
@@ -139,7 +138,32 @@
   }
 
   &-item {
+    &:first-child {
+      ul.list-unstyled {
+        top: 51px
+      }
 
+    }
+    &:nth-child(2){
+      ul.list-unstyled {
+        top: 70px
+      }
+    }
+    &:nth-child(3){
+      ul.list-unstyled {
+        top: 140px
+      }
+    }
+    &:nth-child(4){
+      ul.list-unstyled {
+        top: 204px;
+      }
+    }
+    &:nth-child(5){
+      ul.list-unstyled {
+        top: 275px
+      }
+    }
     >ul.list-unstyled  {
       display: none;
     }
