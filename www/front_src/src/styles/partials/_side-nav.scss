@@ -111,6 +111,7 @@
 .active-link {
   font-weight: 600;
 }
+
 .menu {
   .list-unstyled {
     width: 190px;
@@ -247,6 +248,10 @@
       vertical-align: middle;
       position: absolute;
     }
+  }
+
+  ul.collapse-level.collapsed-level-items.first-level.list-unstyled {
+    top: -56px;
   }
 }
 
