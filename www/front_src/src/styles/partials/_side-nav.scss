@@ -8,6 +8,9 @@
 }
 
 .sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
   width: 68px;
   text-align: center;
   background: $centreon-graphit-color;
@@ -16,23 +19,10 @@
   .sidebar-logo {
     display: none;
   }
-  .collapsed-items {
-    display: none;
-    position: absolute;
-    top: 0px;
-    left: 68px;
-    bottom: 0px;
-    width: 148px;
-    animation: appear 0.5s ease;
-    background: $black-color;
-    background: -moz-linear-gradient(left, $black-color 0%, $centreon-graphit-darken 51%, $centreon-graphit-darken 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left, $black-color 0%,$centreon-graphit-darken 51%,$centreon-graphit-darken 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right, $black-color 0%,$centreon-graphit-darken 51%,$centreon-graphit-darken 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$black-color', endColorstr='$centreon-graphit-darken',GradientType=1 ); /* IE6-9 */
-  }
+  
 
   &.active {
-    width: 300px;
+    width: 68px;
     .sidebar-logo {
       display: block;
     }
@@ -122,13 +112,20 @@
   font-weight: 600;
 }
 .menu {
-  
   .list-unstyled {
     width: 190px;
-    bottom: 0;
     position: fixed;
     top: 51px;
     left: 68px;
+    display: none;
+    width: 170px;
+    animation: appear 0.5s ease;
+    background: $black-color;
+    background: -moz-linear-gradient(left, $black-color 0%, $centreon-graphit-darken 51%, $centreon-graphit-darken 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, $black-color 0%,$centreon-graphit-darken 51%,$centreon-graphit-darken 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, $black-color 0%,$centreon-graphit-darken 51%,$centreon-graphit-darken 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$black-color', endColorstr='$centreon-graphit-darken',GradientType=1 ); /* IE6-9 */
+
   }
   .collapse-level {
     color: $white-color;
@@ -138,17 +135,6 @@
   &-items {
     &.components {
       padding-bottom: 30px;
-    }
-    .menu-item {
-      // >ul.list-unstyled  {
-      //   display: none;
-      // }
-      // &:hover {
-      //   >ul {
-      //     display: block;
-      //   }
-      // }
-
     }
   }
 
@@ -162,7 +148,6 @@
         display: block;
       }
     }
-   
     a:active,
     a:focus {
       font-weight: 600;
@@ -202,7 +187,6 @@
       &:hover {
         color: $white-color;
       }
-      
       i {
         margin-right: 10px;
       }
@@ -279,7 +263,7 @@
     .first-level {
       display: none;
       position: relative;
-      left: 190px;
+      left: 170px;
       top: -50px;
       z-index: 999;
     }
@@ -294,7 +278,6 @@
     &:hover {
       .second-level {
         display: block;
-       
       }
     }
     &.active,

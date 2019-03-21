@@ -108,15 +108,12 @@ class NavigationComponent extends Component {
     });
   };
 
- 
-
-      //active current element
+  //active current element
   activeCurrentElement = (e) => {
     e.currentTarget.className += ' active';
   }
 
   resetActiveElements = () => {
-   
     let targetElement = document.getElementsByClassName('third-level');
     let targetElementClass = targetElement.classList;
     console.log(targetElement);
@@ -267,7 +264,9 @@ class NavigationComponent extends Component {
 
                           <ul
                             onMouseOver={this.collapseLevelThree}
-                            className={`collapse-level collapsed-level-items first-level list-unstyled ${(levelOneProps.toggled && active) ? "active" : " "}`}
+                            className={
+                              `collapse-level collapsed-level-items first-level list-unstyled ${(levelOneProps.toggled && active) ? "active" : " "}`
+                            }
                           >
                             {Object.entries(levelTwoProps.children).map(([levelThreeKey, levelThreeProps]) => {
                               return (
