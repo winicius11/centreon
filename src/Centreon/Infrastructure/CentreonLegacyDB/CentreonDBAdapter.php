@@ -5,6 +5,7 @@ namespace Centreon\Infrastructure\CentreonLegacyDB;
 use Centreon\Infrastructure\Service\Exception\NotFoundException;
 use ReflectionClass;
 use CentreonDB;
+use Centreon\Infrastructure\Service\CentreonDBManagerService;
 
 class CentreonDBAdapter
 {
@@ -22,10 +23,12 @@ class CentreonDBAdapter
      * Construct
      * 
      * @param \CentreonDB $db
+     * @param \Centreon\Infrastructure\Service\CentreonDBManagerService $em
      */
-    public function __construct(CentreonDB $db)
+    public function __construct(CentreonDB $db, CentreonDBManagerService $em)
     {
         $this->db = $db;
+        $this->em = $em;
     }
 
     public function getRepository($repository): ServiceEntityRepository
@@ -38,7 +41,7 @@ class CentreonDBAdapter
             throw new NotFoundException(sprintf('Repository %s must implement %s', $repository, $interface));
         }
 
-        $repositoryInstance = new $repository($this->db);
+        $repositoryInstance = new $repository($this->db, $this->em);
 
         return $repositoryInstance;
     }
