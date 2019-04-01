@@ -36,7 +36,6 @@
 
 namespace Centreon;
 
-use Centreon\Application\Webservice\ContactGroupsWebservice;
 use Centreon\Application\Webservice;
 use Centreon\Infrastructure\Event\EventDispatcher;
 use Centreon\Domain\Entity\FileLoader;
@@ -68,6 +67,7 @@ class ServiceProvider implements AutoloadServiceProviderInterface
     const CENTREON_BROKER_REPOSITORY = 'centreon.broker_repository';
     const CENTREON_BROKER_INFO_REPOSITORY = 'centreon.broker_info_repository';
     const CENTREON_BROKER_CONFIGURATION_SERVICE = 'centreon.broker_configuration_service';
+    const CENTREON_FRONTEND_COMPONENT_SERVICE = 'centreon.frontend_component_service';
     const UPLOAD_MANGER = 'upload.manager';
     const CENTREON_EVENT_DISPATCHER = 'centreon.event_dispatcher';
     const CENTREON_VALIDATOR_FACTORY = 'centreon.validator_factory';
@@ -93,17 +93,23 @@ class ServiceProvider implements AutoloadServiceProviderInterface
         $pimple['centreon.webservice']->add(Webservice\CentreonFrontendComponent::class);
 
 
-        $pimple['centreon.frontend_component_service'] = function (Container $pimple): FrontendComponentService {
-            $service = new FrontendComponentService($pimple);
+        $pimple[static::CENTREON_FRONTEND_COMPONENT_SERVICE] = function (Container $container): FrontendComponentService {
+            $services = [
+                \CentreonLegacy\ServiceProvider::CENTREON_LEGACY_MODULE_INFORMATION,
+            ];
+
+            $locator = new ServiceLocator($container, $services);
+            $service = new FrontendComponentService($locator);
+
             return $service;
         };
 
-        $pimple[static::CENTREON_WEBSERVICE]->add(Application\Webservice\TopologyWebservice::class);
-        $pimple[static::CENTREON_WEBSERVICE]->add(Application\Webservice\ContactGroupsWebservice::class);
-        $pimple[static::CENTREON_WEBSERVICE]->add(Application\Webservice\ImagesWebservice::class);
+        $pimple[static::CENTREON_WEBSERVICE]->add(Webservice\TopologyWebservice::class);
+        $pimple[static::CENTREON_WEBSERVICE]->add(Webservice\ContactGroupsWebservice::class);
+        $pimple[static::CENTREON_WEBSERVICE]->add(Webservice\ImagesWebservice::class);
 
         if (defined('OpenApi\UNDEFINED') !== false) {
-            $pimple[static::CENTREON_WEBSERVICE]->add(\Centreon\Application\Webservice\OpenApiWebservice::class);
+            $pimple[static::CENTREON_WEBSERVICE]->add(Webservice\OpenApiWebservice::class);
         }
 
         $pimple[static::CENTREON_CLAPI] = function(Container $container): CentreonClapiService {
