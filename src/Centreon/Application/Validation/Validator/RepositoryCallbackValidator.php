@@ -48,9 +48,7 @@ class RepositoryCallbackValidator extends CallbackValidator
             throw new ConstraintDefinitionException(
                 sprintf('%s targeted by Callback constraint is not a valid callable in the repository',
                 json_encode($method)));
-        } elseif (null == $object || empty($object->$fieldAccessor())){
-            throw new ConstraintDefinitionException('Object to validate or additional poller id is empty');
-        } else {
+        } elseif ($object !== null && !empty($object->$fieldAccessor())) {
             if (!$repo->$method($object)){
                 $this->context->buildViolation($constraint->message)
                     ->atPath($field)
