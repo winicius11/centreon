@@ -34,64 +34,46 @@
  *
  */
 
-namespace Centreon\Domain\Repository;
+namespace Centreon\Domain\Repository\Traits;
 
-use Centreon\Infrastructure\CentreonLegacyDB\ServiceEntityRepository;
-use Centreon\Domain\Entity\NagiosServer;
-use Centreon\Domain\Repository\Traits\CheckListOfIdsTrait;
+use Centreon\Infrastructure\CentreonLegacyDB\StatementCollector;
 
-class NagiosServerRepository extends ServiceEntityRepository
+trait CheckListOfIdsTrait
 {
 
-    use CheckListOfIdsTrait;
-
     /**
-     * Check list of IDs
-     *
+     * 
+     * @param array $ids
+     * @param string $tableName
+     * @param string $columnNameOfIdentificator
      * @return bool
      */
-    public function checkListOfIds(array $ids): bool
+    protected function checkListOfIdsTrait(array $ids, string $tableName, string $columnNameOfIdentificator): bool
     {
-        return $this->checkListOfIdsTrait($ids, NagiosServer::TABLE, NagiosServer::ENTITY_IDENTIFICATOR_COLUMN);
-    }
+        $count = count($ids);
 
-    /**
-     * Export poller's Nagios data
-     * 
-     * @param int[] $pollerIds
-     * @return array
-     */
-    public function export(array $pollerIds): array
-    {
-        // prevent SQL exception
-        if (!$pollerIds) {
-            return [];
+        $collector = new StatementCollector;
+        $sql = "SELECT COUNT(*) AS `total` FROM `{$tableName}` ";
+
+        $isWhere = false;
+        foreach ($ids as $x => $value) {
+            $key = ":id{$x}";
+
+            $sql .= (!$isWhere ? 'WHERE ' : 'OR ') . "`{$columnNameOfIdentificator}` = {$key} ";
+            $collector->addValue($key, $value);
+
+            $isWhere = true;
+            unset($x, $value);
         }
 
-        $ids = join(',', $pollerIds);
-
-        $sql = "SELECT * FROM nagios_server WHERE id IN ({$ids})";
+        $sql .= 'LIMIT 0, 1';
 
         $stmt = $this->db->prepare($sql);
+        $collector->bind($stmt);
         $stmt->execute();
 
-        $result = [];
+        $result = $stmt->fetch();
 
-        while ($row = $stmt->fetch()) {
-            $result[] = $row;
-        }
-
-        return $result;
-    }
-
-    public function truncate()
-    {
-        $sql = <<<SQL
-TRUNCATE TABLE `nagios_server`;
-TRUNCATE TABLE `cfg_nagios`;
-TRUNCATE TABLE `cfg_nagios_broker_module`
-SQL;
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
+        return (int) $result['total'] === $count;
     }
 }

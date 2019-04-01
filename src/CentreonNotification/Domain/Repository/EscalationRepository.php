@@ -1,7 +1,7 @@
 <?php
 /*
  * Copyright 2005-2019 Centreon
- * Centreon is developped by : Julien Mathis and Romain Le Merlus under
+ * Centreon is developed by : Julien Mathis and Romain Le Merlus under
  * GPL Licence 2.0.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -41,9 +41,21 @@ use Centreon\Infrastructure\CentreonLegacyDB\Interfaces\PaginationRepositoryInte
 use PDO;
 use CentreonNotification\Domain\Entity\Escalation;
 use Centreon\Infrastructure\CentreonLegacyDB\StatementCollector;
+use Centreon\Domain\Repository\Traits\CheckListOfIdsTrait;
 
 class EscalationRepository extends ServiceEntityRepository implements PaginationRepositoryInterface
 {
+    use CheckListOfIdsTrait;
+
+    /**
+     * Check list of IDs
+     *
+     * @return bool
+     */
+    public function checkListOfIds(array $ids): bool
+    {
+        return $this->checkListOfIdsTrait($ids, Escalation::TABLE, 'esc_id');
+    }
 
     /**
      * {@inheritdoc}

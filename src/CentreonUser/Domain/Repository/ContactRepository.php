@@ -34,13 +34,13 @@
  *
  */
 
-namespace Centreon\Domain\Repository;
+namespace CentreonUser\Domain\Repository;
 
 use Centreon\Infrastructure\CentreonLegacyDB\ServiceEntityRepository;
-use Centreon\Domain\Entity\NagiosServer;
+use CentreonUser\Domain\Entity\Contact;
 use Centreon\Domain\Repository\Traits\CheckListOfIdsTrait;
 
-class NagiosServerRepository extends ServiceEntityRepository
+class ContactGroupRepository extends ServiceEntityRepository
 {
 
     use CheckListOfIdsTrait;
@@ -52,46 +52,6 @@ class NagiosServerRepository extends ServiceEntityRepository
      */
     public function checkListOfIds(array $ids): bool
     {
-        return $this->checkListOfIdsTrait($ids, NagiosServer::TABLE, NagiosServer::ENTITY_IDENTIFICATOR_COLUMN);
-    }
-
-    /**
-     * Export poller's Nagios data
-     * 
-     * @param int[] $pollerIds
-     * @return array
-     */
-    public function export(array $pollerIds): array
-    {
-        // prevent SQL exception
-        if (!$pollerIds) {
-            return [];
-        }
-
-        $ids = join(',', $pollerIds);
-
-        $sql = "SELECT * FROM nagios_server WHERE id IN ({$ids})";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-
-        $result = [];
-
-        while ($row = $stmt->fetch()) {
-            $result[] = $row;
-        }
-
-        return $result;
-    }
-
-    public function truncate()
-    {
-        $sql = <<<SQL
-TRUNCATE TABLE `nagios_server`;
-TRUNCATE TABLE `cfg_nagios`;
-TRUNCATE TABLE `cfg_nagios_broker_module`
-SQL;
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
+        return $this->checkListOfIdsTrait($ids, Contact::TABLE, Contact::ENTITY_IDENTIFICATOR_COLUMN);
     }
 }
