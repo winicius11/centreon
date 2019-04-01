@@ -43,6 +43,7 @@ class UniqueEntity extends Constraint
 {
 
     const NOT_UNIQUE_ERROR = '23bd9dbf-6b9b-41cd-a99e-4844bcf3077c';
+
     public $validatorClass = UniqueEntityValidator::class;
     public $message = 'This value is already used.';
     public $entityIdentificatorMethod = 'getId';
@@ -52,6 +53,10 @@ class UniqueEntity extends Constraint
     public $fields = [];
     public $errorPath = null;
     public $ignoreNull = true;
+
+    protected static $errorNames = [
+        self::NOT_UNIQUE_ERROR => 'NOT_UNIQUE_ERROR',
+    ];
 
 
     /**
@@ -69,6 +74,7 @@ class UniqueEntity extends Constraint
     {
         return 'fields';
     }
+
     /**
      * The validator class name.
      *
@@ -78,8 +84,4 @@ class UniqueEntity extends Constraint
     {
         return $this->validatorClass;
     }
-
-    protected static $errorNames = [
-        self::NOT_UNIQUE_ERROR => 'NOT_UNIQUE_ERROR',
-    ];
 }

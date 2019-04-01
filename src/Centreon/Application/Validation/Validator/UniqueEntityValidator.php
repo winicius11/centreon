@@ -37,20 +37,18 @@
 namespace Centreon\Application\Validation\Validator;
 
 use Centreon\Application\Validation\Constraints\UniqueEntity;
-use Centreon\Infrastructure\Service\CentreonDBManagerService;
 use Centreon\ServiceProvider;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Symfony\Component\Validator\Constraints\NotBlankValidator;
 
 class UniqueEntityValidator extends ConstraintValidator
 {
 
     /**
-     * @var CentreonDBManagerService;
+     * @var \Centreon\Infrastructure\Service\CentreonDBManagerService;
      */
     private $db;
 
@@ -88,8 +86,6 @@ class UniqueEntityValidator extends ConstraintValidator
             return;
         }
 
-        $unique = true;
-
         foreach ($fields as $field) {
             $methodValueGetter = 'get'. ucfirst($field);
             $value = $entity->$methodValueGetter();
@@ -105,13 +101,7 @@ class UniqueEntityValidator extends ConstraintValidator
                     ->setCode(UniqueEntity::NOT_UNIQUE_ERROR)
                     ->setCause($result)
                     ->addViolation();
-
-                $unique = false;
             }
-        }
-
-        if ($unique) {
-            return;
         }
     }
 
