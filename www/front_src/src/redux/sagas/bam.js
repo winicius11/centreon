@@ -14,9 +14,9 @@ export function* setBaConfiguration() {
   yield takeEvery(actions.BA_CONFIGURATION_CHANGED, setConfiguration);
 }
 
-function* setConfiguration(action) {
+function* setConfiguration({configuration}) {
   try {
-    yield put({ type: actions.SET_BA_CONFIGURATION, data: action.data });
+    yield put({ type: actions.SET_BA_CONFIGURATION, configuration });
   } catch (err) {
     throw err;
   }
