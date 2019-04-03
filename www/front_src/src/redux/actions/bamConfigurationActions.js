@@ -1,0 +1,2 @@
+export const SET_BA_CONFIGURATION = "@bam/SET_BA_CONFIGURATION";
+
