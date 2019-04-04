@@ -30,9 +30,10 @@ class ImagesWebservice extends CentreonWebServiceAbstract
 
     /**
      * @OA\Get(
-     *   path="/internal.php?object=centreon_images&action=getList",
+     *   path="/internal.php?object=centreon_images&action=list",
      *   description="Get images list",
      *   tags={"centreon_images"},
+     *   security={{"Session": {}}},
      *   @OA\Parameter(
      *       in="query",
      *       name="object",
@@ -49,8 +50,8 @@ class ImagesWebservice extends CentreonWebServiceAbstract
      *       name="action",
      *       @OA\Schema(
      *          type="string",
-     *          enum={"getList"},
-     *          default="getList"
+     *          enum={"list"},
+     *          default="list"
      *       ),
      *       description="the name of the action in the API class",
      *       required=true
@@ -91,10 +92,29 @@ class ImagesWebservice extends CentreonWebServiceAbstract
      *       description="limit",
      *       required=false
      *   ),
+     *   @OA\Response(
+     *       response="200",
+     *       description="OK",
+     *       @OA\JsonContent(
+     *          @OA\Property(
+     *              property="entities",
+     *              type="array",
+     *              @OA\Items(ref="#/components/schemas/ImageEntity")
+     *          ),
+     *          @OA\Property(
+     *              property="pagination",
+     *              ref="#/components/schemas/Pagination"
+     *          )
+     *      )
+     *   )
+     * )
+     *
+     * Get images list
+     *
      * @throws \RestBadRequestException
      * @return array
      */
-    public function getGetList(): Response
+    public function getList(): Response
     {
         /*
          * process request
