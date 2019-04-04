@@ -28,9 +28,10 @@ class ContactGroupsWebservice extends CentreonWebServiceAbstract
 
     /**
      * @OA\Get(
-     *   path="/internal.php?object=centreon_contact_groups&action=getList",
+     *   path="/internal.php?object=centreon_contact_groups&action=list",
      *   description="Get contact groups list",
      *   tags={"centreon_contact_groups"},
+     *   security={{"Session": {}}},
      *   @OA\Parameter(
      *       in="query",
      *       name="object",
@@ -47,8 +48,8 @@ class ContactGroupsWebservice extends CentreonWebServiceAbstract
      *       name="action",
      *       @OA\Schema(
      *          type="string",
-     *          enum={"getList"},
-     *          default="getList"
+     *          enum={"list"},
+     *          default="list"
      *       ),
      *       description="the name of the action in the API class",
      *       required=true
@@ -89,10 +90,29 @@ class ContactGroupsWebservice extends CentreonWebServiceAbstract
      *       description="limit",
      *       required=false
      *   ),
+     *   @OA\Response(
+     *       response="200",
+     *       description="OK",
+     *       @OA\JsonContent(
+     *          @OA\Property(
+     *              property="entities",
+     *              type="array",
+     *              @OA\Items(ref="#/components/schemas/ImageEntity")
+     *          ),
+     *          @OA\Property(
+     *              property="pagination",
+     *              ref="#/components/schemas/Pagination"
+     *          )
+     *      )
+     *   )
+     * )
+     *
+     * Get contact groups list
+     *
      * @throws \RestBadRequestException
      * @return array
      */
-    public function getGetList(): Response
+    public function getList(): Response
     {
         /*
          * process request
