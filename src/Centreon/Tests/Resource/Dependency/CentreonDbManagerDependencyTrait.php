@@ -15,10 +15,11 @@
  * limitations under the License.
  */
 
-namespace Centreon\Tests\Resource\Traits;
+namespace Centreon\Tests\Resource\Dependency;
 
 use Pimple\Container;
 use Centreon\ServiceProvider;
+use Centreon\Test\Mock\CentreonDBManagerService;
 
 /**
  * Container provider for Centreon\Infrastructure\Service\CentreonDBManagerService
@@ -28,7 +29,7 @@ use Centreon\ServiceProvider;
  * @package centreon
  * @subpackage test
  */
-trait CentreonDbManagerTrait
+trait CentreonDbManagerDependencyTrait
 {
 
     /**
@@ -47,8 +48,6 @@ trait CentreonDbManagerTrait
     public function setUpCentreonDbManager(Container $container)
     {
 
-        $container[ServiceProvider::CENTREON_DB_MANAGER] = new class {
-            
-        };
+        $container[ServiceProvider::CENTREON_DB_MANAGER] = new CentreonDBManagerService;
     }
 }
