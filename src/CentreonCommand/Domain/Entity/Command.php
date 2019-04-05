@@ -45,6 +45,10 @@ class Command
 {
 
     const TABLE = 'command';
+    const TYPE_NOTIFICATION = 1;
+    const TYPE_CHECK = 2;
+    const TYPE_MISC = 3;
+    const TYPE_DISCOVERY = 4;
 
     /**
      * @var int an identification of entity
@@ -74,5 +78,31 @@ class Command
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * Convert type from string to integer
+     *
+     * @param string $name
+     * @return int|null
+     */
+    public static function getTypeIdFromName(string $name): ?int
+    {
+        switch ($name) {
+            case 'notification':
+                return static::TYPE_NOTIFICATION;
+                break;
+            case 'check':
+                return static::TYPE_CHECK;
+                break;
+            case 'misc':
+                return static::TYPE_MISC;
+                break;
+            case 'discovery':
+                return static::TYPE_DISCOVERY;
+                break;
+        }
+
+        return null;
     }
 }

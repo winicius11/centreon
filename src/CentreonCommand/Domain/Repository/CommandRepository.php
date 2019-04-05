@@ -75,6 +75,11 @@ class CommandRepository extends ServiceEntityRepository implements PaginationRep
 
                 $sql .= ' AND `command_id` IN (' . implode(',', $idsListKey) . ')';
             }
+
+            if (array_key_exists('type', $filters) && $filters['type']) {
+                $sql .= ' AND `command_type` LIKE :type';
+                $collector->addValue(':type', "%{$filters['type']}%");
+            }
         }
 
         $sql .= ' ORDER BY `command_name` ASC';

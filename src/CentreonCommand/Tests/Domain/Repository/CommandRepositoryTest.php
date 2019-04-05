@@ -69,7 +69,7 @@ class CommandRepositoryTest extends TestCase
             [
                 'query' => "SELECT SQL_CALC_FOUND_ROWS `command_id` AS `id`, `command_name` AS `name` "
                 . "FROM `" . Command::TABLE . "` WHERE `command_activate` = :active "
-                . "AND `command_name` LIKE :search AND `command_id` IN (:id0) "
+                . "AND `command_name` LIKE :search AND `command_id` IN (:id0) AND `command_type` LIKE :type "
                 . "ORDER BY `command_name` ASC LIMIT :limit OFFSET :offset",
                 'data' => [
                     [
@@ -119,6 +119,7 @@ class CommandRepositoryTest extends TestCase
         $filters = [
             'search' => 'name',
             'ids' => ['ids'],
+            'type' => 3,
         ];
         $limit = 1;
         $offset = 0;
