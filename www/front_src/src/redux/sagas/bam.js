@@ -21,3 +21,15 @@ function* setConfiguration({configuration}) {
     throw err;
   }
 }
+
+export function* setBaConfigurationErrors() {
+  yield takeEvery(actions.BA_CONFIGURATION_ERRORS, setErrors);
+}
+
+function* setErrors({errors}) {
+  try {
+    yield put({ type: actions.SET_BA_CONFIGURATION_ERRORS, errors });
+  } catch (err) {
+    throw err;
+  }
+}

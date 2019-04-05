@@ -14,7 +14,8 @@ const rootSaga = function* rootSaga(){
         fork(axiosSagas.uploadAxiosData),
         fork(axiosSagas.resetUploadProgress),
         fork(navigationSagas.loadNavigationData),
-        fork(bamSagas.setBaConfiguration)
+        fork(bamSagas.setBaConfiguration),
+        fork(bamSagas.setBaConfigurationErrors)
     ])
 }
 
