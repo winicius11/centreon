@@ -39,6 +39,7 @@ namespace CentreonCommand\Application\Webservice;
 use CentreonRemote\Application\Webservice\CentreonWebServiceAbstract;
 use CentreonCommand\Application\DataRepresenter;
 use CentreonCommand\Domain\Repository;
+use CentreonCommand\Domain\Entity\Command;
 use Pimple\Container;
 use Pimple\Psr11\ServiceLocator;
 use Centreon\ServiceProvider;
@@ -112,6 +113,15 @@ class CentreonCommandWebservice extends CentreonWebServiceAbstract
      *       ),
      *       description="maximum entities in the list"
      *   ),
+     *   @OA\Parameter(
+     *       in="query",
+     *       name="type",
+     *       @OA\Schema(
+     *          type="string",
+     *          enum={"notification", "check", "misc", "discovery"},
+     *       ),
+     *       description="filter by type"
+     *   ),
      *   @OA\Response(
      *       response="200",
      *       description="OK",
@@ -147,8 +157,19 @@ class CentreonCommandWebservice extends CentreonWebServiceAbstract
         if (isset($request['search']) && $request['search']) {
             $filters['search'] = $request['search'];
         }
+
         if (isset($request['searchByIds']) && $request['searchByIds']) {
             $filters['ids'] = explode(',', $request['searchByIds']);
+        }
+
+        if (isset($request['type']) && $request['type']) {
+            $typeId = Command::getTypeIdFromName($request['type']);
+
+            if ($typeId !== null) {
+                $filters['type'] = $typeId;
+            }
+
+            unset($typeId);
         }
 
         $pagination = $this->services->get(ServiceProvider::CENTREON_PAGINATION);

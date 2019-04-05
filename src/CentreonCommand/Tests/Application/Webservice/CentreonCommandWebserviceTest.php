@@ -83,6 +83,7 @@ class CentreonCommandWebserviceTest extends TestCase
         // with search, searchByIds, limit, and offset
         $filters['search'] = 'test';
         $filters['searchByIds'] = '3,5,7';
+        $filters['type'] = 'misc';
         $filters['limit'] = '1a';
         $filters['offset'] = '2b';
         $this->executeTest($method, 'response-list-2.json');
