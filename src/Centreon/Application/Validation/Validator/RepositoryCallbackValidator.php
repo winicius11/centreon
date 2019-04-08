@@ -48,7 +48,7 @@ class RepositoryCallbackValidator extends CallbackValidator
             throw new ConstraintDefinitionException(
                 sprintf('%s targeted by Callback constraint is not a valid callable in the repository',
                 json_encode($method)));
-        } elseif ($object !== null && $repo->$method($object)) {
+        } elseif (null !== $object && !$repo->$method($object)) {
                 $this->context->buildViolation($constraint->message)
                     ->atPath($field)
                     ->setInvalidValue($value)
