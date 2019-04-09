@@ -46,6 +46,16 @@ class CentreonDBManagerService
         return $manager;
     }
 
+    /**
+     * Get default adapter with DB connection
+     *
+     * @return \Centreon\Infrastructure\CentreonLegacyDB\CentreonDBAdapter
+     */
+    public function getDefaultAdapter(): CentreonDBAdapter
+    {
+        return $this->manager[$this->defaultManager];
+    }
+
     public function getRepository($repository): ServiceEntityRepository
     {
         $manager = $this->manager[$this->defaultManager]
