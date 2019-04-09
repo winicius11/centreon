@@ -12,11 +12,11 @@ const initialState = {
       groups: [],
       notifications_enabled: false,
       bam_contact: [],
-      notification_period: null,
+      notification_period: 1,
       notification_interval: null,
       notification_options: [],
-      level_w: null,
-      level_c: null,
+      level_w: 80,
+      level_c: 70,
       reporting_timeperiods: [],
       sla_month_percent_warn: null,
       sla_month_percent_crit: null,
@@ -25,7 +25,8 @@ const initialState = {
       bam_esc: [],
       event_handler_enabled: false,
       event_handler_command: null,
-      event_handler_args: null
+      event_handler_args: null,
+      id_reporting_period:1
     },
     errors:{}
   };
