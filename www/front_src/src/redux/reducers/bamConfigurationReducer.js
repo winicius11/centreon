@@ -7,7 +7,7 @@ const initialState = {
       name: null,
       description: null,
       icon: null,
-      inherit_kpi_downtimes: false,
+      inherit_kpi_downtimes: true,
       additional_poller: [],
       groups: [],
       notifications_enabled: false,
