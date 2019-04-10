@@ -9,6 +9,7 @@ import axiosReducer from "./axiosReducer";
 import externalComponentsReducer from "./externalComponentsReducer";
 import tooltipReducer from './tooltipReducer';
 import bamConfigurationReducer from './bamConfigurationReducer';
+import globalsReducer from './globalsReducer';
 
 export default combineReducers({
   form: formReducer,
@@ -19,5 +20,6 @@ export default combineReducers({
   remoteData: axiosReducer,
   externalComponents: externalComponentsReducer,
   tooltip: tooltipReducer,
-  bamConfiguration:bamConfigurationReducer
+  bamConfiguration:bamConfigurationReducer,
+  globals:globalsReducer
 });
