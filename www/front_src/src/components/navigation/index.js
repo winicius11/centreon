@@ -195,7 +195,7 @@ class NavigationComponent extends Component {
             {Object.entries(menuItems).map(([levelOneKey, levelOneProps]) => (
               levelOneProps.label ? (
                 <li
-                  className={`menu-item ${ levelOneKey.substring(1) ==  urlchanged.substring(0,1)  ? activated : " to-hover"}`}
+                  className={`menu-item ${levelOneProps.toggled ||  levelOneKey.substring(1) ==  urlchanged.substring(0,1)  ? activated : " to-hover"}`}
                 >
                 <span
                   onDoubleClick={() => {this.handleDirectClick(levelOneKey, levelOneProps)}}
@@ -260,7 +260,7 @@ class NavigationComponent extends Component {
                                             ? this.activeCurrentLevel(levelOneKey, levelTwoKey)
                                             : this.collapseLevelThree(levelOneKey, levelTwoKey)
                                           }}
-                                          className={`collapsed-level-item ${levelFourUrl.urlOptions == this.state.urlchanged  ? activated : ""}`}
+                                          className={`collapsed-level-item ${this.isActive(pageId, levelFourUrl) || levelFourUrl.urlOptions == this.state.urlchanged  ? activated : ""}`}
                                         >
                                           <Link
                                             onClick={() => {this.goToPage(levelFourUrl.url, levelOneKey)}}
