@@ -7,12 +7,12 @@
   flex-direction: column;
   overflow: hidden;
   width: 100%;
-  height: 100vh;
   transition: all 0.3s;
   position: relative;
+  padding-bottom: 30px;
 }
 
 #fullscreen-wrapper {
   flex-grow: 1;
-  overflow: hidden;
+  overflow-y: auto;
 }

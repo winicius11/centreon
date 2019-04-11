@@ -636,4 +636,6 @@ class CentreonExternalCommand
         );
         $this->write();
     }
+
+
 }

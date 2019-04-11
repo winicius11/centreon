@@ -1,4 +1,5 @@
 <?php
+
 namespace Centreon\Infrastructure\Service;
 
 use Psr\Container\ContainerInterface;
@@ -29,8 +30,8 @@ class CentreonDBManagerService
     public function __construct(ContainerInterface $services)
     {
         $this->manager = [
-            'configuration_db' => new CentreonDBAdapter($services->get('configuration_db')),
-            'realtime_db' => new CentreonDBAdapter($services->get('realtime_db')),
+            'configuration_db' => new CentreonDBAdapter($services->get('configuration_db'), $this),
+            'realtime_db' => new CentreonDBAdapter($services->get('realtime_db'), $this),
         ];
 
         $this->defaultManager = 'configuration_db';
@@ -43,6 +44,16 @@ class CentreonDBManagerService
             null;
 
         return $manager;
+    }
+
+    /**
+     * Get default adapter with DB connection
+     *
+     * @return \Centreon\Infrastructure\CentreonLegacyDB\CentreonDBAdapter
+     */
+    public function getDefaultAdapter(): CentreonDBAdapter
+    {
+        return $this->manager[$this->defaultManager];
     }
 
     public function getRepository($repository): ServiceEntityRepository

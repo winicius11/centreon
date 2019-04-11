@@ -49,6 +49,7 @@ if (file_exists(_CENTREON_ETC_ . '/centreon.conf.php')) {
     }
 }
 
+//class directory
 $classdir = _CENTREON_PATH_ . '/www/class';
 
 if (!isset($centreon_path) || !$centreon_path) {
