@@ -47,7 +47,6 @@ use CentreonNotification\Domain\Repository\EscalationRepository;
  */
 class EscalationRepositoryTest extends TestCase
 {
-
     protected $datasets = [];
     protected $repository;
 
@@ -140,5 +139,20 @@ class EscalationRepositoryTest extends TestCase
         $result = $this->repository->getPaginationListTotal();
 
         $this->assertEquals($total, $result);
+    }
+
+    public function testCheckListOfIds()
+    {
+        $method = 'checkListOfIdsTrait';
+        $repository = $this->getMockBuilder(EscalationRepository::class)
+            ->disableOriginalConstructor()
+            ->setMethods([$method])
+            ->getMock();
+
+        $repository
+            ->method($method)
+            ->willReturn(true);
+
+        $this->assertTrue($repository->checkListOfIds([]));
     }
 }
