@@ -33,31 +33,42 @@
  *
  *
  */
-namespace CentreonNotification\Tests\Application\DataRepresenter;
+
+namespace Centreon\Tests\Application\DataRepresenter;
 
 use PHPUnit\Framework\TestCase;
-use Centreon\Domain\Entity\ContactGroup;
-use Centreon\Application\DataRepresenter\ContactGroupEntity;
+use Symfony\Component\Validator;
+use Centreon\Application\DataRepresenter\ValidatorErrorList;
 
-/**
- * @group Centreon
- * @group DataRepresenter
- */
-class ContactGroupEntityTest extends TestCase
+class ValidatorErrorListTest extends TestCase
 {
     public function testJsonSerialize()
     {
-        $entity = new ContactGroup();
-        $entity->setCgId(150);
-        $entity->setCgName('test name');
-        $entity->setCgActivate('true');
-        $value = [
-            'id' => $entity->getCgId(),
-            'name' => $entity->getCgName(),
-            'activate'=> $entity->getCgActivate()
+        $field = 'input-field';
+        $msg1 = 'error N1';
+        $msg2 = 'error N2';
+
+        // list of violations
+        $errors = [
+            new Validator\ConstraintViolation($msg1, null, [], null, $field, null, null, null, null),
+            new Validator\ConstraintViolation($msg2, null, [], null, $field, null, null, null, null),
         ];
-        $dataRepresenter = new ContactGroupEntity($entity);
-        $result = $dataRepresenter->jsonSerialize();
-        $this->assertEquals($value, $result);
+
+        // excpected result
+        $expected = [
+            [
+                'field' => $field,
+                'messages' => $msg1,
+            ],
+            [
+                'field' => $field,
+                'messages' => $msg2,
+            ],
+        ];
+
+        // load data representer
+        $dataRepresenter = new ValidatorErrorList(new Validator\ConstraintViolationList($errors));
+
+        $this->assertEquals($expected, $dataRepresenter->jsonSerialize());
     }
 }
