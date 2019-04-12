@@ -42,7 +42,6 @@ use Centreon\Domain\Repository\Traits\CheckListOfIdsTrait;
 
 class ContactGroupRepository extends ServiceEntityRepository
 {
-
     use CheckListOfIdsTrait;
 
     /**
