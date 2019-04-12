@@ -43,7 +43,6 @@ namespace CentreonNotification\Domain\Entity;
  */
 class Escalation
 {
-
     const TABLE = 'escalation';
 
     /**

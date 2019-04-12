@@ -46,7 +46,6 @@ use CentreonNotification\Application\DataRepresenter\EscalationEntity;
  */
 class EscalationEntityTest extends TestCase
 {
-
     public function testJsonSerialize()
     {
         $entity = new Escalation;

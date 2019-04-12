@@ -48,7 +48,6 @@ use Centreon\Tests\Resource\Mock\CentreonPaginationServiceMock;
  */
 class CentreonEscalationWebserviceTest extends TestCase
 {
-
     protected function setUp()
     {
         // dependencies
@@ -73,8 +72,8 @@ class CentreonEscalationWebserviceTest extends TestCase
         $this->webservice
             ->method('query')
             ->will($this->returnCallback(function () use (&$filters) {
-                    return $filters;
-                }))
+                return $filters;
+            }))
         ;
 
         // without applied filters
@@ -105,8 +104,8 @@ class CentreonEscalationWebserviceTest extends TestCase
             $user
                 ->method('hasAccessRestApiConfiguration')
                 ->will($this->returnCallback(function () {
-                        return true;
-                    }))
+                    return true;
+                }))
             ;
 
             $result = $this->webservice->authorize(null, $user);
