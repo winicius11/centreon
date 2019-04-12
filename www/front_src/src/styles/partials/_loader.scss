@@ -1,8 +1,11 @@
 .main-loader {
+  width: 100%;
+  height: 50px;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
+  margin: initial;
   .ball-grid-pulse {
     width: 100%;
   }
