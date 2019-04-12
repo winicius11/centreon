@@ -3,6 +3,7 @@ www/index.html
 
 #backend development and project files
 .idea/
+.vscode/
 vendor/
 nbproject/
 GPL_LIB/SmartyCache/*
@@ -33,6 +34,7 @@ config/centreon.config.php
 
 #continuous integration and testing files
 *-dev.yml
+.php_cs.cache
 coverage-report/
 centreon-build/
 secret
