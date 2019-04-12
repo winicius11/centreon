@@ -152,7 +152,7 @@ class RemoverTest extends \PHPUnit_Framework_TestCase
             'WHERE directory = :directory ';
         $this->db->addResultSet(
             $query,
-            array()
+            [[]]
         );
         $this->container->registerProvider(new ConfigurationDBProvider($this->db));
 
