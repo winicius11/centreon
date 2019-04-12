@@ -67,7 +67,6 @@ class UpdateActionTest extends TestCase
 
     public function testJsonSerialize()
     {
-        $this->entity = $this->entity;
         $message = 'OK';
 
         $controlResult = [
