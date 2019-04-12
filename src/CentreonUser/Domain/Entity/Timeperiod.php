@@ -43,7 +43,6 @@ namespace CentreonUser\Domain\Entity;
  */
 class Timeperiod
 {
-
     const TABLE = 'timeperiod';
 
     /**

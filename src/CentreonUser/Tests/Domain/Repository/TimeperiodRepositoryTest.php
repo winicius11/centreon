@@ -47,7 +47,6 @@ use CentreonUser\Domain\Repository\TimeperiodRepository;
  */
 class TimeperiodRepositoryTest extends TestCase
 {
-
     protected $datasets = [];
     protected $repository;
 
@@ -144,5 +143,20 @@ class TimeperiodRepositoryTest extends TestCase
         $result = $this->repository->getPaginationListTotal();
 
         $this->assertEquals($total, $result);
+    }
+
+    public function testCheckListOfIds()
+    {
+        $method = 'checkListOfIdsTrait';
+        $repository = $this->getMockBuilder(TimeperiodRepository::class)
+            ->disableOriginalConstructor()
+            ->setMethods([$method])
+            ->getMock();
+
+        $repository
+            ->method($method)
+            ->willReturn(true);
+        
+        $this->assertTrue($repository->checkListOfIds([]));
     }
 }

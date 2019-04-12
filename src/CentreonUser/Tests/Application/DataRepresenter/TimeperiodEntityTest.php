@@ -46,7 +46,6 @@ use CentreonUser\Application\DataRepresenter\TimeperiodEntity;
  */
 class TimeperiodEntityTest extends TestCase
 {
-
     public function testJsonSerialize()
     {
         $entity = new Timeperiod;
