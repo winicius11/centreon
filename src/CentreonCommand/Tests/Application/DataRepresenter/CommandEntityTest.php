@@ -46,7 +46,6 @@ use CentreonCommand\Application\DataRepresenter\CommandEntity;
  */
 class CommandEntityTest extends TestCase
 {
-
     public function testJsonSerialize()
     {
         $entity = new Command;

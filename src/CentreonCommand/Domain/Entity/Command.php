@@ -43,7 +43,6 @@ namespace CentreonCommand\Domain\Entity;
  */
 class Command
 {
-
     const TABLE = 'command';
     const TYPE_NOTIFICATION = 1;
     const TYPE_CHECK = 2;

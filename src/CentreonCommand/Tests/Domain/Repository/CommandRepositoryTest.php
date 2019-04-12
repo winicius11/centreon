@@ -47,7 +47,6 @@ use CentreonCommand\Domain\Repository\CommandRepository;
  */
 class CommandRepositoryTest extends TestCase
 {
-
     protected $datasets = [];
     protected $repository;
 

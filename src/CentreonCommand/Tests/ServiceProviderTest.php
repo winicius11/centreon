@@ -48,7 +48,6 @@ use CentreonCommand\Application\Webservice;
  */
 class ServiceProviderTest extends TestCase
 {
-
     use WebserviceTrait;
 
     protected $container;
