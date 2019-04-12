@@ -47,7 +47,6 @@ use CentreonModule\ServiceProvider;
 
 class CentreonModuleWebserviceTest extends TestCase
 {
-
     protected function setUp()
     {
         // dependencies
@@ -62,121 +61,121 @@ class CentreonModuleWebserviceTest extends TestCase
         $container[ServiceProvider::CENTREON_MODULE]
             ->method('getList')
             ->will($this->returnCallback(function () {
-                    $funcArgs = func_get_args();
+                $funcArgs = func_get_args();
 
-                    // prepare filters
-                    $funcArgs[0] = $funcArgs[0] === null ? '-' : $funcArgs[0];
-                    $funcArgs[1] = $funcArgs[1] === true ? '1' : ($funcArgs[1] !== false ? '-' : '0');
-                    $funcArgs[2] = $funcArgs[2] === true ? '1' : ($funcArgs[2] !== false ? '-' : '0');
-                    $funcArgs[3] = $funcArgs[3] ? implode('|', $funcArgs[3]) : '-';
-                    $name = implode(',', $funcArgs);
+                // prepare filters
+                $funcArgs[0] = $funcArgs[0] === null ? '-' : $funcArgs[0];
+                $funcArgs[1] = $funcArgs[1] === true ? '1' : ($funcArgs[1] !== false ? '-' : '0');
+                $funcArgs[2] = $funcArgs[2] === true ? '1' : ($funcArgs[2] !== false ? '-' : '0');
+                $funcArgs[3] = $funcArgs[3] ? implode('|', $funcArgs[3]) : '-';
+                $name = implode(',', $funcArgs);
 
-                    $module = new Module;
-                    $module->setId(ModuleSourceTest::$moduleName);
-                    $module->setName($name);
-                    $module->setAuthor('');
-                    $module->setVersion('');
-                    $module->setType(ModuleSource::TYPE);
+                $module = new Module;
+                $module->setId(ModuleSourceTest::$moduleName);
+                $module->setName($name);
+                $module->setAuthor('');
+                $module->setVersion('');
+                $module->setType(ModuleSource::TYPE);
 
-                    return [
+                return [
                         ModuleSource::TYPE => [
                             $module,
                         ],
                     ];
-                }))
+            }))
         ;
         $container[ServiceProvider::CENTREON_MODULE]
             ->method('getDetail')
             ->will($this->returnCallback(function () {
-                    $funcArgs = func_get_args();
+                $funcArgs = func_get_args();
 
-                    // prepare filters
-                    $funcArgs[0] = $funcArgs[0] === null ? '-' : $funcArgs[0];
-                    $funcArgs[1] = $funcArgs[1] === null ? '-' : $funcArgs[1];
+                // prepare filters
+                $funcArgs[0] = $funcArgs[0] === null ? '-' : $funcArgs[0];
+                $funcArgs[1] = $funcArgs[1] === null ? '-' : $funcArgs[1];
 
-                    if ($funcArgs[0] === ModuleSourceTest::$moduleNameMissing) {
-                        return null;
-                    }
+                if ($funcArgs[0] === ModuleSourceTest::$moduleNameMissing) {
+                    return null;
+                }
 
-                    $name = implode(',', $funcArgs);
+                $name = implode(',', $funcArgs);
 
-                    $module = new Module;
-                    $module->setId(ModuleSourceTest::$moduleName);
-                    $module->setName($name);
-                    $module->setAuthor('');
-                    $module->setVersion('');
-                    $module->setType(ModuleSource::TYPE);
+                $module = new Module;
+                $module->setId(ModuleSourceTest::$moduleName);
+                $module->setName($name);
+                $module->setAuthor('');
+                $module->setVersion('');
+                $module->setType(ModuleSource::TYPE);
 
-                    return $module;
-                }))
+                return $module;
+            }))
         ;
         $container[ServiceProvider::CENTREON_MODULE]
             ->method('install')
             ->will($this->returnCallback(function () {
-                    $funcArgs = func_get_args();
+                $funcArgs = func_get_args();
 
-                    if ($funcArgs[0] === '' && $funcArgs[1] === '') {
-                        throw new \Exception('');
-                    }
+                if ($funcArgs[0] === '' && $funcArgs[1] === '') {
+                    throw new \Exception('');
+                }
 
-                    // prepare filters
-                    $funcArgs[0] = $funcArgs[0] === '' ? '-' : $funcArgs[0];
-                    $funcArgs[1] = $funcArgs[1] === '' ? '-' : $funcArgs[1];
+                // prepare filters
+                $funcArgs[0] = $funcArgs[0] === '' ? '-' : $funcArgs[0];
+                $funcArgs[1] = $funcArgs[1] === '' ? '-' : $funcArgs[1];
 
-                    if ($funcArgs[0] === ModuleSourceTest::$moduleNameMissing) {
-                        return null;
-                    }
+                if ($funcArgs[0] === ModuleSourceTest::$moduleNameMissing) {
+                    return null;
+                }
 
-                    $name = implode(',', $funcArgs);
+                $name = implode(',', $funcArgs);
 
-                    $module = new Module;
-                    $module->setId(ModuleSourceTest::$moduleName);
-                    $module->setName($name);
-                    $module->setAuthor('');
-                    $module->setVersion('');
-                    $module->setType(ModuleSource::TYPE);
+                $module = new Module;
+                $module->setId(ModuleSourceTest::$moduleName);
+                $module->setName($name);
+                $module->setAuthor('');
+                $module->setVersion('');
+                $module->setType(ModuleSource::TYPE);
 
-                    return $module;
-                }))
+                return $module;
+            }))
         ;
         $container[ServiceProvider::CENTREON_MODULE]
             ->method('update')
             ->will($this->returnCallback(function () {
-                    $funcArgs = func_get_args();
+                $funcArgs = func_get_args();
 
-                    if ($funcArgs[0] === '' && $funcArgs[1] === '') {
-                        throw new \Exception('');
-                    }
+                if ($funcArgs[0] === '' && $funcArgs[1] === '') {
+                    throw new \Exception('');
+                }
 
-                    // prepare filters
-                    $funcArgs[0] = $funcArgs[0] === '' ? '-' : $funcArgs[0];
-                    $funcArgs[1] = $funcArgs[1] === '' ? '-' : $funcArgs[1];
+                // prepare filters
+                $funcArgs[0] = $funcArgs[0] === '' ? '-' : $funcArgs[0];
+                $funcArgs[1] = $funcArgs[1] === '' ? '-' : $funcArgs[1];
 
-                    if ($funcArgs[0] === ModuleSourceTest::$moduleNameMissing) {
-                        return null;
-                    }
+                if ($funcArgs[0] === ModuleSourceTest::$moduleNameMissing) {
+                    return null;
+                }
 
-                    $name = implode(',', $funcArgs);
+                $name = implode(',', $funcArgs);
 
-                    $module = new Module;
-                    $module->setId(ModuleSourceTest::$moduleName);
-                    $module->setName($name);
-                    $module->setAuthor('');
-                    $module->setVersion('');
-                    $module->setType(ModuleSource::TYPE);
+                $module = new Module;
+                $module->setId(ModuleSourceTest::$moduleName);
+                $module->setName($name);
+                $module->setAuthor('');
+                $module->setVersion('');
+                $module->setType(ModuleSource::TYPE);
 
-                    return $module;
-                }))
+                return $module;
+            }))
         ;
         $container[ServiceProvider::CENTREON_MODULE]
             ->method('remove')
             ->will($this->returnCallback(function () {
-                    $funcArgs = func_get_args();
+                $funcArgs = func_get_args();
 
-                    if ($funcArgs[0] === '' && $funcArgs[1] === '') {
-                        throw new \Exception('');
-                    }
-                }))
+                if ($funcArgs[0] === '' && $funcArgs[1] === '') {
+                    throw new \Exception('');
+                }
+            }))
         ;
 
         $this->webservice = $this->createPartialMock(CentreonModuleWebservice::class, [
@@ -197,8 +196,8 @@ class CentreonModuleWebserviceTest extends TestCase
         $this->webservice
             ->method('query')
             ->will($this->returnCallback(function () use (&$filters) {
-                    return $filters;
-                }))
+                return $filters;
+            }))
         ;
 
         // without applied filters
@@ -232,8 +231,8 @@ class CentreonModuleWebserviceTest extends TestCase
         $this->webservice
             ->method('query')
             ->will($this->returnCallback(function () use (&$filters) {
-                    return $filters;
-                }))
+                return $filters;
+            }))
         ;
 
         // find module by id and type
@@ -254,8 +253,8 @@ class CentreonModuleWebserviceTest extends TestCase
         $this->webservice
             ->method('query')
             ->will($this->returnCallback(function () use (&$filters) {
-                    return $filters;
-                }))
+                return $filters;
+            }))
         ;
 
         $this->executeTest($method, 'response-install-1.json');
@@ -273,8 +272,8 @@ class CentreonModuleWebserviceTest extends TestCase
         $this->webservice
             ->method('query')
             ->will($this->returnCallback(function () use (&$filters) {
-                    return $filters;
-                }))
+                return $filters;
+            }))
         ;
 
         $this->executeTest($method, 'response-update-1.json');
@@ -292,8 +291,8 @@ class CentreonModuleWebserviceTest extends TestCase
         $this->webservice
             ->method('query')
             ->will($this->returnCallback(function () use (&$filters) {
-                    return $filters;
-                }))
+                return $filters;
+            }))
         ;
 
         $this->executeTest($method, 'response-remove-1.json');
@@ -321,8 +320,8 @@ class CentreonModuleWebserviceTest extends TestCase
             $user
                 ->method('hasAccessRestApiConfiguration')
                 ->will($this->returnCallback(function () {
-                        return true;
-                    }))
+                    return true;
+                }))
             ;
 
             $result = $this->webservice->authorize(null, $user);

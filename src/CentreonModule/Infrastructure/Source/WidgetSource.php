@@ -44,7 +44,6 @@ use CentreonLegacy\ServiceProvider as ServiceProviderLegacy;
 
 class WidgetSource extends SourceAbstract
 {
-
     const TYPE = 'widget';
     const PATH = 'www/widgets/';
     const CONFIG_FILE = 'configs.xml';
@@ -76,7 +75,6 @@ class WidgetSource extends SourceAbstract
         $this->remover = $services->get(ServiceProviderLegacy::CENTREON_LEGACY_WIDGET_REMOVER);
 
         parent::__construct($services);
-
     }
 
     public function initInfo()

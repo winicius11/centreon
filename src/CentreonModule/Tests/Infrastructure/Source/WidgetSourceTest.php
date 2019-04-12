@@ -52,7 +52,6 @@ use CentreonModule\Tests\Resource\Traits\SourceDependencyTrait;
 
 class WidgetSourceTest extends TestCase
 {
-
     use TestCaseExtensionTrait,
         SourceDependencyTrait;
 
@@ -122,10 +121,10 @@ class WidgetSourceTest extends TestCase
         $this->source
             ->method('getPath')
             ->will($this->returnCallback(function () {
-                    $result = 'vfs://widgets/';
+                $result = 'vfs://widgets/';
 
-                    return $result;
-                }))
+                return $result;
+            }))
         ;
     }
 

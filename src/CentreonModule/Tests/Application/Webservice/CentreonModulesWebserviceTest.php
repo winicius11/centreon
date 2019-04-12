@@ -44,7 +44,6 @@ use CentreonModule\Application\Webservice\CentreonModulesWebservice;
 
 class CentreonModulesWebserviceTest extends TestCase
 {
-
     public static $sqlQueriesWitoutData = [
         'SELECT * FROM modules_informations ' => [],
     ];

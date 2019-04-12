@@ -43,7 +43,6 @@ use CentreonModule\Application\DataRepresenter\ModuleEntity;
 
 class UpdateActionTest extends TestCase
 {
-
     public function setUp()
     {
         $data = [

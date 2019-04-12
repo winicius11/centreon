@@ -40,7 +40,6 @@ use CentreonModule\Infrastructure\Entity\Module;
 
 interface SourceInterface
 {
-
     public function initInfo();
 
     public function getList(string $search = null, bool $installed = null, bool $updated = null) : array;

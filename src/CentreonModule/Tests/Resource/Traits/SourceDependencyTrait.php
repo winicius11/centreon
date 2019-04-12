@@ -48,7 +48,6 @@ use CentreonModule\Tests\Infrastructure\Source\ModuleSourceTest;
  */
 trait SourceDependencyTrait
 {
-
     public function setUpSourceDependency(&$container)
     {
         // Legacy dependency
@@ -86,10 +85,10 @@ trait SourceDependencyTrait
                 $service
                     ->method('remove')
                     ->will($this->returnCallback(function () use ($moduleName, $moduleId) {
-                            if ($moduleName !== ModuleSourceTest::$moduleName) {
-                                throw new \Exception($moduleName, (int) $moduleId);
-                            }
-                        }))
+                        if ($moduleName !== ModuleSourceTest::$moduleName) {
+                            throw new \Exception($moduleName, (int) $moduleId);
+                        }
+                    }))
                 ;
 
                 return $service;

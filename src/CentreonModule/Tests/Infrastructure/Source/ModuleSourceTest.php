@@ -52,7 +52,6 @@ use CentreonModule\Tests\Resource\Traits\SourceDependencyTrait;
 
 class ModuleSourceTest extends TestCase
 {
-
     use TestCaseExtensionTrait,
         SourceDependencyTrait;
 
@@ -129,20 +128,20 @@ class ModuleSourceTest extends TestCase
         $this->source
             ->method('getPath')
             ->will($this->returnCallback(function () {
-                    $result = 'vfs://modules/';
+                $result = 'vfs://modules/';
 
-                    return $result;
-                }))
+                return $result;
+            }))
         ;
         $this->source
             ->method('getModuleConf')
             ->will($this->returnCallback(function () {
-                    $result = [
+                $result = [
                         ModuleSourceTest::$moduleName => ModuleSourceTest::$moduleInfo,
                     ];
 
-                    return $result;
-                }))
+                return $result;
+            }))
         ;
     }
 
@@ -235,7 +234,7 @@ class ModuleSourceTest extends TestCase
 //    {
 //        $moduleSource = new ModuleSource($this->containerWrap);
 //        $result = $this->invokeMethod($moduleSource, 'getModuleConf', [static::getConfFilePath()]);
-//        //'php://filter/read=string.rot13/resource=' . 
+//        //'php://filter/read=string.rot13/resource=' .
 //    }
 
     public static function getConfFilePath(): string
