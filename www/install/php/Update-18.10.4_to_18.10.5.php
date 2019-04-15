@@ -35,37 +35,46 @@
  */
 
 /*
- * Redo all PHP 2.8.26-18.10.0 for people migrtating from 2.8.27 before PR #7416
+ * Redo all PHP upgrades from 2.8.26 to 18.10.0 for people migrating from 2.8.27 before PR #7416
  */
-$qury = "SELECT `value` FROM `informations` WHERE `key` IN ('appKey', 'isRemote', 'isCentral')";
-$result = $pearDB->query($query);
+$result = $pearDB->query(
+    "SELECT `value` FROM `informations` WHERE `key` IN ('appKey', 'isRemote', 'isCentral')"
+);
 
-if ($result->numberRows() == 0) {
-    $uniqueKey = md5(uniqid(rand(), TRUE));
-    $query = "INSERT INTO `informations` (`key`,`value`) VALUES ('appKey', '$uniqueKey')";
-    $pearDB->query($query);
-    $query = "INSERT INTO `informations` (`key`,`value`) VALUES ('isRemote', 'no')";
-    $pearDB->query($query);
-    $query = "INSERT INTO `informations` (`key`,`value`) VALUES ('isCentral', 'no')";
-    $pearDB->query($query);
+if ($result->rowCount() == 0) {
+    $uniqueKey = md5(uniqid(rand(), true));
+    $pearDB->query(
+        "INSERT INTO `informations` (`key`,`value`) VALUES ('appKey', '" . $uniqueKey . "')"
+    );
+    $pearDB->query(
+        "INSERT INTO `informations` (`key`,`value`) VALUES ('isRemote', 'no')"
+    );
+    $pearDB->query(
+        "INSERT INTO `informations` (`key`,`value`) VALUES ('isCentral', 'no')"
+    );
 }
 
 // Retrieve current Nagios plugins path.
-$query = "SELECT value FROM options WHERE `key`='nagios_path_plugins'";
-$result = $pearDB->query($query);
-$row = $result->fetchRow();
+$result = $pearDB->query(
+    "SELECT value FROM options WHERE `key`='nagios_path_plugins'"
+);
+$row = $result->fetch();
 
 // Update to new path if necessary.
 if ($row
     && preg_match('#/usr/lib/nagios/plugins/?#', $row['value'])
-    && is_dir('/usr/lib64/nagios/plugins')) {
+    && is_dir('/usr/lib64/nagios/plugins')
+) {
     // options table.
-    $query = "UPDATE options SET value='/usr/lib64/nagios/plugins/' WHERE `key`='nagios_path_plugins'";
-    $pearDB->query($query);
+    $pearDB->query(
+        "UPDATE options SET value='/usr/lib64/nagios/plugins/' WHERE `key`='nagios_path_plugins'"
+    );
 
     // USER1 resource.
-    $query = "UPDATE cfg_resource SET resource_line='/usr/lib64/nagios/plugins' WHERE resource_line='/usr/lib/nagios/plugins'";
-    $pearDB->query($query);
+    $pearDB->query(
+        "UPDATE cfg_resource SET resource_line='/usr/lib64/nagios/plugins' " .
+        "WHERE resource_line='/usr/lib/nagios/plugins'"
+    );
 }
 
 /*
@@ -73,7 +82,9 @@ if ($row
  */
 
 // get all acl menu configurations
-$aclTopologies = $pearDB->query('SELECT acl_topo_id FROM acl_topology');
+$aclTopologies = $pearDB->query(
+    'SELECT acl_topo_id FROM acl_topology'
+);
 while ($aclTopology = $aclTopologies->fetch()) {
     $aclTopologyId = $aclTopology['acl_topo_id'];
 
@@ -92,22 +103,21 @@ while ($aclTopology = $aclTopologies->fetch()) {
     // get missing parent topology relations
     $aclToInsert = [];
     foreach ($topologies as $topologyPage => $topologyParameters) {
-        if (
-            isset($topologyParameters['topology_parent']) &&
-            !isset($topologies[$topologyParameters['topology_parent']]) &&
-            !in_array($topologyParameters['topology_parent'], $aclToInsert)
+        if (isset($topologyParameters['topology_parent'])
+            && !isset($topologies[$topologyParameters['topology_parent']])
+            && !in_array($topologyParameters['topology_parent'], $aclToInsert)
         ) {
             if (strlen($topologyPage) === 5) { // level 3
-                $levelOne = substr($topologyPage, 0, 1); // get level 1 from begining of topology_page
+                $levelOne = substr($topologyPage, 0, 1); // get level 1 from beginning of topology_page
                 if (!isset($aclToInsert[$levelOne])) {
                     $aclToInsert[] = $levelOne;
                 }
-                $levelTwo = substr($topologyPage, 0, 3); // get level 2 from begining of topology_page
+                $levelTwo = substr($topologyPage, 0, 3); // get level 2 from beginning of topology_page
                 if (!isset($aclToInsert[$levelTwo])) {
                     $aclToInsert[] = $levelTwo;
                 }
             } elseif (strlen($topologyPage) === 3) { // level 2
-                $levelOne = substr($topologyPage, 0, 1); // get level 1 from begining of topology_page
+                $levelOne = substr($topologyPage, 0, 1); // get level 1 from beginning of topology_page
                 if (!isset($aclToInsert[$levelOne])) {
                     $aclToInsert[] = $levelOne;
                 }
