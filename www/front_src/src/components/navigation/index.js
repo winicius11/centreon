@@ -23,26 +23,28 @@ class NavigationComponent extends Component {
     initiallyCollapsed: false,
     selectedMenu: {},
     menuItems: [],
-    urlchanged: '123'
+    newurl: ``
   };
 
-  componentWillMount() {
-    this.unlisten = this.props.history.listen((location, action) => {
-      let { menuItems } = this.state;
-      let matchingUrl = location.search.substring(3,8)
-      console.log(`The current URL is location name : ${location.pathname} location search : ${matchingUrl}`)
-      this.setState({
-        urlchanged: matchingUrl,
-        menuItems
-      });
-      // return matchingUrl;
-    });
-  }
+
   componentWillUnmount() {
     this.unlisten();
   }
   componentDidMount = () => {
     const { fetchNavigationData } = this.props;
+    const { menuItems } = this.props;
+
+    this.unlisten = this.props.history.listen((location, action) => {
+      const { newurl } = this.state;
+      let matchingUrl = `${location.pathname}${location.search}${location.hash}`
+      console.log(`The current URL is : ${matchingUrl}`)
+
+      this.setState({
+        newurl: matchingUrl,
+        menuItems
+      });
+      return matchingUrl
+    });
     fetchNavigationData();
   };
 
@@ -160,8 +162,7 @@ class NavigationComponent extends Component {
 
   render() {
     const { menuItems } = this.props;
-    const { active } = this.state;
-    let { urlchanged } = this.state;
+    const { active, newurl } = this.state;
     const pageId = this.getPageId();
     const activated = " active"
     return (
@@ -195,7 +196,8 @@ class NavigationComponent extends Component {
             {Object.entries(menuItems).map(([levelOneKey, levelOneProps]) => (
               levelOneProps.label ? (
                 <li
-                  className={`menu-item ${levelOneProps.toggled ||  levelOneKey.substring(1) ==  urlchanged.substring(0,1)  ? activated : " to-hover"}`}
+                  // className={`menu-item ${(levelOneProps.toggled && active || levelOneProps.active) ||  levelOneKey.substring(1) ==  newurl.substring(0,1)  ? activated : " to-hover"}`}
+                  className={`menu-item ${(levelOneProps.toggled && active || levelOneProps.active)  ? activated : " to-hover"}`}
                 >
                 <span
                   onDoubleClick={() => {this.handleDirectClick(levelOneKey, levelOneProps)}}
@@ -260,10 +262,11 @@ class NavigationComponent extends Component {
                                             ? this.activeCurrentLevel(levelOneKey, levelTwoKey)
                                             : this.collapseLevelThree(levelOneKey, levelTwoKey)
                                           }}
-                                          className={`collapsed-level-item ${this.isActive(pageId, levelFourUrl) || levelFourUrl.urlOptions == this.state.urlchanged  ? activated : ""}`}
+                                          // className={`collapsed-level-item ${this.isActive(pageId, levelFourUrl) || levelFourUrl.url == this.state.newurl  ? activated : ""}`}
+                                          className={`collapsed-level-item ${this.isActive(pageId, levelFourUrl) ? activated : ""}`}
                                         >
                                           <Link
-                                            onClick={() => {this.goToPage(levelFourUrl.url, levelOneKey)}}
+                                            onClick={() => {this.goToPage(levelFourUrl.url, levelOneKey); console.log('the link to is : ' +  levelFourUrl.url+ ' and is equal to ' + this.state.newurl )}}
                                             className={`collapsed-level-item-link`}
                                             to={levelFourUrl.url}
                                           >
