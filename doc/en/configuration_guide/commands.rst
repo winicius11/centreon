@@ -12,7 +12,7 @@ There are three types of command:
 
 *       **Verification** commands are used by the schedulers to verify the status of a host or of a service.
 *       **Notification** commands are used by the schedulers to alert the contacts (via mail, SMS, etc.).
-*	**Discovery** commands are used by the schedulers to discover some elements on monitored node.
+*	    **Discovery** commands are used by the schedulers to discover some elements on monitored node.
 *       **Miscellaneous** commands are used by the additional modules (to perform certain actions), by the scheduler for data processing, etc.
 
 All the commands can be configured in the menu: **Configuration ==> Commands**.
@@ -20,6 +20,8 @@ All the commands can be configured in the menu: **Configuration ==> Commands**.
 .. image :: /images/user/configuration/04commandlist.png
    :align: center
 
+.. note::
+   By default, locked commands are hidden. Tick the "Display locked" box to list all commands.
 
 **************** 
 Adding a command
