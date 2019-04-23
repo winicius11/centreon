@@ -291,7 +291,7 @@
     .menu {
       &-item {
         &.active {
-          & > ul.collapse.collapsed-items {                       
+          & > ul.collapse.collapsed-items {
             @media screen and(min-width: 1501px) {
               max-height: 690px;
               overflow-y: auto;
@@ -308,8 +308,19 @@
             &.first-level {
               width: auto;
             }
-          }
+          }        
         }
+      }
+    }
+    @media screen and(max-height: 768px) {
+      li.menu-item:nth-child(4) > ul.collapsed-items,
+      li.menu-item:last-child > ul.collapsed-items{
+        bottom: 0;
+        top: auto !important;
+      }
+      li.menu-item:nth-child(4) > ul.collapsed-items li.collapsed-item:first-child > ul.collapsed-level-items,
+      li.menu-item:last-child > ul.collapsed-items li.collapsed-item:first-child > ul.collapsed-level-items {
+        bottom: auto;
       }
     }
 
