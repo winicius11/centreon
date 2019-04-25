@@ -1679,9 +1679,6 @@ CREATE TABLE `modules_informations` (
   `is_removeable` enum('0','1') DEFAULT NULL,
   `infos` text,
   `author` varchar(255) DEFAULT NULL,
-  `lang_files` enum('0','1') DEFAULT NULL,
-  `sql_files` enum('0','1') DEFAULT NULL,
-  `php_files` enum('0','1') DEFAULT NULL,
   `svc_tools` enum('0','1') DEFAULT NULL,
   `host_tools` enum('0','1') DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -2400,4 +2397,3 @@ CREATE TABLE IF NOT EXISTS `task` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
